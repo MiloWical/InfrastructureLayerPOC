@@ -18,7 +18,7 @@ The projects in this solution are built for the following purposes:
 | DemoService.Contract | Defines the operations that exist on the service implementation. Also contains definitions for various SettingProviders. |
 | DemoService.Contract.UnitTest | Mostly just unit tests for the SettingProviders. |
 | DemoService.Implementation | The core service implementation of IDemonstrationService. |
-| DemoService.Infrastructure.Docker | A Docker wrapper around the service implementation using a custom protocol on TCP port 54321. (See [this](https://milowical.visualstudio.com/_git/InfrastructureLayerPOC?path=%2FInfrastructureLayerPOC%2FDemoService.Infrastructure.Docker&version=GBmaster&_a=contents#path=%2FInfrastructureLayerPOC%2FDemoService.Infrastructure.Docker%2FReadme.txt&version=GBmaster&_a=contents) for more detail.) |
+| DemoService.Infrastructure.Docker | A Docker wrapper around the service implementation using a custom protocol on TCP port 54321. (See [this](https://github.com/MiloWical/InfrastructureLayerPOC/blob/master/InfrastructureLayerPOC/DemoService.Infrastructure.Docker/Readme.txt) |
 | DemoService.Infrastructure.WCF | A traditional WCF-based SOAP web service that wraps the service implementation. The WCF contract and the service interface are intentionally different. |
 | DemoService.Infrastructure.WebAPI | A REST-based wrapper around the service implementation. It's also got a Swagger UI - append /swagger to the service URL when running to access it. |
 | DemoService.Test | Unit and load tests for the service implementation. (Load testing may require VS 2017.) |
