@@ -9,6 +9,22 @@ For reference, here are a few links for the Anti-Corruption Pattern:
 * [Martin Fowler](https://martinfowler.com/articles/refactoring-external-service.html#SeparatingTheYoutubeDataStructureIntoAGateway) (More of an illustration than definition)
 * [Dino Esposito](https://www.microsoftpressstore.com/articles/article.aspx?p=2248811&seqNum=3) (A holistic view of where ACLs fit in a broader context.)
 
+# How It Works
+Basically, this is an implementation of a loose key-value pair model, where each of the keys are called _versions_ and the values are called _settings_. The service implementation allows for standard CRUD operations on the settings. Every time a setting is added to the provider, the version is incremented. The call to get the latest setting is, essentially, the one with the greatest version.
+
+There are 3 `ISettingProvider` implementations:
+
+* __`StaticSettingProvider`__: This provider doesn't allow for __ANY__ modification of the keys.
+* __`SingVersionSettingProvider`__: This provider allows you to add or update the setting, but only maintains the latest.
+* __`DictionarySettingProvider`__: This provider allows to you to add new settings, or update any of the historical settings.
+
+Any of the providers can be added to the core service implementation via DI, but the various infrastructure implementations (WCF, WebAPI, Docker) use the following providers by default:
+
+| Infrastructure Provider | Setting Provider |
+| --- | --- |
+| WCF | `StaticSettingProvider` |
+| WebAPI | `SingleVersionSettingProvider` |
+| Docker | `DictionarySettingProvider` |
 
 # Project Structure
 The projects in this solution are built for the following purposes:
@@ -16,11 +32,11 @@ The projects in this solution are built for the following purposes:
 | Project Name| Purpose |
 | ---| --- |
 | DemoService.Contract | Defines the operations that exist on the service implementation. Also contains definitions for various SettingProviders. |
-| DemoService.Contract.UnitTest | Mostly just unit tests for the SettingProviders. |
-| DemoService.Implementation | The core service implementation of IDemonstrationService. |
+| DemoService.Contract.UnitTest | Mostly just unit tests for the `ISettingProvider` implementations. |
+| DemoService.Implementation | The core service implementation of `IDemonstrationService`. |
 | DemoService.Infrastructure.Docker | A Docker wrapper around the service implementation using a custom protocol on TCP port 54321. (See [this](https://github.com/MiloWical/InfrastructureLayerPOC/blob/master/InfrastructureLayerPOC/DemoService.Infrastructure.Docker/Readme.txt).) |
 | DemoService.Infrastructure.WCF | A traditional WCF-based SOAP web service that wraps the service implementation. The WCF contract and the service interface are intentionally different. |
-| DemoService.Infrastructure.WebAPI | A REST-based wrapper around the service implementation. It's also got a Swagger UI - append /swagger to the service URL when running to access it. |
+| DemoService.Infrastructure.WebAPI | A REST-based wrapper around the service implementation. It's also got a Swagger UI - append `/swagger` to the service URL when running to access it. |
 | DemoService.Test | Unit and load tests for the service implementation. (Load testing may require VS 2017.) |
 | TcpTestClient | A .NET Core test client that connects to an IP address and TCP port to send ASCII messages. An empty message terminates the application. |
 
