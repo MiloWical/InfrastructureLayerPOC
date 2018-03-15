@@ -1,8 +1,8 @@
 # Introduction 
 This project is designed to give an overview of what is being termed an "Infrastructure Layer" for web services.
 
-In particular, an "Infrastructure Layer" as used here is an implementation of what, in other circles is termed an "Anticorruption Layer". 
-For reference, here are a few links for the Anticorruption Pattern:
+In particular, an "Infrastructure Layer" as used here is an implementation of what, in other circles, is termed an "Anti-Corruption Layer". 
+For reference, here are a few links for the Anti-Corruption Pattern:
 
 * [Microsoft](https://docs.microsoft.com/en-us/azure/architecture/patterns/anti-corruption-layer)
 * [Eric Evans](https://domainlanguage.com/wp-content/uploads/2016/05/DDD_Reference_2015-03.pdf) (The originator of the term - see p. 34)
