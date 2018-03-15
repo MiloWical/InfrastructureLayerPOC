@@ -37,7 +37,7 @@
 
    dotnet TcpTestClient <DOCKER_HOST> <HOST_PORT>
 
-   where <DOCKER_HOST> is the host name or IP address of the target Docker host and <HOST_PORT> is the same as 
+   where <DOCKER_HOST> is the IP address of the target Docker host and <HOST_PORT> is the same as 
    the one specified in step (4) above.
 
 6) Test the container. Once the TcpTestClient application connects, use the following protocol to test settings behaviors:
