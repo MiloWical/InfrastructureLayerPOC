@@ -1,0 +1,50 @@
+﻿####### BEGIN BUILD CONTAINER DEFINITION #######
+
+# Full-size container will all of the .NET Core dependencies
+FROM microsoft/dotnet:2.0-sdk as builder  
+
+# Build the directory structure (Note that all Windows container operations
+# need the Windows directory delimiter '\'. Docker instructions use the
+# *nix delimiter '/'.) 
+RUN mkdir \_src\Reference ; mkdir \_src\app
+
+# Change to the container-local app directory
+WORKDIR /_src/app
+
+# Copy the references .DLLs and .csproj file
+COPY ./Reference ../Reference 
+COPY DemoService.Infrastructure.Docker.csproj . 
+
+# Restore NuGet packages
+RUN dotnet restore .\DemoService.Infrastructure.Docker.csproj 
+
+# Copy the other source files to the container
+COPY . .
+
+# Build as Release (smaller size) and publish to the /_src/app/bin directory
+RUN dotnet publish -c release -o bin 
+
+####### END BUILD CONTAINER DEFINITION #######
+
+####### BEGIN RUNTIME CONTAINER DEFINITION #######
+
+# Smaller Nanoserver runtime container
+FROM microsoft/dotnet:2.0.0-runtime-nanoserver-1709
+
+# Create the /_bin/app directory to house the built code
+RUN mkdir \_bin\app
+
+# Change to the container-local binaries location
+WORKDIR /_bin/app  
+
+# Copy the out of the build process in the build container to the
+# binaries location in the runtime container
+COPY --from=builder /_src/app/bin .
+
+# Let people connect to the container-local port 54321 via TCP
+EXPOSE 54321/tcp
+
+# Run the server program to process transactions
+CMD ["dotnet", "./DemoService.Infrastructure.Docker.dll"]  
+
+####### END RUNTIME CONTAINER DEFINITION #######

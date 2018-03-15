@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <ApplicationIcon />
+    <OutputType>Exe</OutputType>
+    <StartupObject />
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.0.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="DemoService.Contract">
+      <HintPath>.\Reference\DemoService.Contract.dll</HintPath>
+    </Reference>
+    <Reference Include="DemoService.Implementation">
+      <HintPath>.\Reference\DemoService.Implementation.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Reference\" />
+  </ItemGroup>
+
+  <!-- <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="del /Q $(ProjectDir)Reference\*.*&#xD;&#xA;copy $(SolutionDir)Reference\*.* $(ProjectDir)Reference" />
+  </Target> -->
+
+</Project>
