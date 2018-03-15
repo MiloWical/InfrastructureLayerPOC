@@ -10,7 +10,7 @@ For reference, here are a few links for the Anti-Corruption Pattern:
 * [Dino Esposito](https://www.microsoftpressstore.com/articles/article.aspx?p=2248811&seqNum=3) (A holistic view of where ACLs fit in a broader context.)
 
 
-#Project Structure
+# Project Structure
 The projects in this solution are built for the following purposes:
 
 | Project Name| Purpose |
